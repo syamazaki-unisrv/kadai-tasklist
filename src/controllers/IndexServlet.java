@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.TaskList;
+import models.Task;
 import utils.DBUtil;
 
 /**
@@ -36,13 +36,13 @@ public class IndexServlet extends HttpServlet {
         // TODO Auto-generated method stub
         EntityManager em = DBUtil.createEntityManager();
 
-        List<TaskList> tasklists = em.createNamedQuery("getAllTaskLists", TaskList.class).getResultList();
+        List<Task> tasks = em.createNamedQuery("getAllTasks", Task.class).getResultList();
 
         em.close();
 
-        request.setAttribute("tasklists", tasklists);
+        request.setAttribute("tasks", tasks);
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasklists/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/index.jsp");
         rd.forward(request, response);
 
 

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.TaskList;
+import models.Task;
 import utils.DBUtil;
 
 /**
@@ -35,18 +35,18 @@ public class EditServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         // 該当のIDのメッセージ1件のみをデータベースから取得
-        TaskList m = em.find(TaskList.class, Integer.parseInt(request.getParameter("id")));
+        Task m = em.find(Task.class, Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
         // メッセージ情報とセッションIDをリクエストスコープに登録
-        request.setAttribute("tasklist", m);
+        request.setAttribute("task", m);
         request.setAttribute("_token", request.getSession().getId());
 
         // メッセージIDをセッションスコープに登録
-        request.getSession().setAttribute("tasklist_id", m.getId());
+        request.getSession().setAttribute("task_id", m.getId());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasklists/edit.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/edit.jsp");
         rd.forward(request, response);
     }
 
